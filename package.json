@@ -21,15 +21,21 @@
     "count": "dist/main.js"
   },
   "scripts": {
+    "api:build": "aspida",
+    "pre": "npm run api:build",
     "start": "tsc && node dist/main.js",
     "start:watch": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
+    "prebuild": "npm run pre",
     "build": "tsc",
+    "pretest": "npm run pre",
     "test": "jest",
     "clean": "rm dist/*",
     "upgrade-interactive": "npm-check --update",
     "csb:test": "npm test -- --runInBand --watchAll"
   },
   "dependencies": {
+    "@aspida/axios": "^1.7.1",
+    "axios": "^0.21.1",
     "yargs": "^17.1.1"
   },
   "devDependencies": {
