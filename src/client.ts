@@ -13,6 +13,7 @@ export const fetchConfig = (getApiKey: string, globalDraftKey: string = '') => {
   return { headers };
 };
 
-const clientV1 = api(axiosClient(axios)).api.v1;
+const clientV1 = (baseURL: string) =>
+  api({ ...axiosClient(axios), baseURL }).api.v1;
 
 export default clientV1;
