@@ -1,5 +1,5 @@
 // import { Writable } from 'stream';
-import clientFunc, { fetchConfig as fetchConfigFunc } from './client';
+import client, { fetchConfig } from './client';
 import {
   PagesList,
   PagesIds,
@@ -32,9 +32,11 @@ import { htmlToMarkdown } from './source';
 // id が 1件で 40byte  と想定、 content-length が 5M 程度とのことなので、1000*1000*5 / 40 で余裕を見て決めた値。
 const allIdsLimit = 120000;
 
-const client = clientFunc('');
-const fetchConfig = fetchConfigFunc('');
-
+export type PageDataClientOptions = {
+  baseURL: string;
+  getApiKey: string;
+  globalDraftKey?: string;
+};
 export type PageDataGetOptions = {
   // ページの主題となる一覧を取得する場合に指定(ブログページで posps API を指定するなど)
   // コンテンツ側からは congtentPageArticles として指定する。
@@ -48,17 +50,18 @@ export type PageDataGetOptions = {
 };
 
 export async function getSortedPagesData(
+  { baseURL, getApiKey, globalDraftKey }: PageDataClientOptions,
   apiName: ApiNameArticle,
   query: GetQuery = {}
 ): Promise<PagesList> {
   try {
-    const res = await client[apiName].get({
+    const res = await client(baseURL)[apiName].get({
       query: {
         ...query,
         fields:
           'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual'
       },
-      config: fetchConfig
+      config: fetchConfig(getApiKey, globalDraftKey)
     });
     return res.body;
   } catch (err) {
@@ -70,17 +73,18 @@ export async function getSortedPagesData(
 }
 
 export async function getSortedIndexData(
+  { baseURL, getApiKey, globalDraftKey }: PageDataClientOptions,
   apiName: ApiNameArticle,
   query: GetQuery = {}
 ): Promise<IndexList> {
   try {
-    const res = await client[apiName].get({
+    const res = await client(baseURL)[apiName].get({
       query: {
         ...query,
         fields:
           'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual'
       },
-      config: fetchConfig
+      config: fetchConfig(getApiKey, globalDraftKey)
     });
     const p = res.body.contents.map((res) => {
       return async (): Promise<IndexData> => {
@@ -122,16 +126,17 @@ export async function getSortedIndexData(
 }
 
 export async function getPagesIdsList(
+  { baseURL, getApiKey, globalDraftKey }: PageDataClientOptions,
   apiName: ApiNameArticle,
   query: GetQuery = {}
 ): Promise<PagesIds> {
   try {
-    const res = await client[apiName].get({
+    const res = await client(baseURL)[apiName].get({
       query: {
         ...query,
         fields: 'id'
       },
-      config: fetchConfig
+      config: fetchConfig(getApiKey, globalDraftKey)
     });
     return res.body;
   } catch (err) {
@@ -141,12 +146,13 @@ export async function getPagesIdsList(
 }
 
 export async function getAllPagesIds(
+  clientOpts: PageDataClientOptions,
   apiName: ApiNameArticle,
   query: GetQuery = {}
 ) {
   try {
     return (
-      await getPagesIdsList(apiName, {
+      await getPagesIdsList(clientOpts, apiName, {
         ...query,
         limit: query.limit !== undefined ? query.limit : allIdsLimit
       })
@@ -158,13 +164,17 @@ export async function getAllPagesIds(
 }
 
 export async function getAllPaginationIds(
+  clientOpts: PageDataClientOptions,
   apiName: ApiNameArticle,
   itemsPerPage: number,
   pagePath: string[] = [],
   query: GetQuery = {}
 ): Promise<string[][]> {
   try {
-    const idsList = await getPagesIdsList(apiName, { ...query, limit: 0 });
+    const idsList = await getPagesIdsList(clientOpts, apiName, {
+      ...query,
+      limit: 0
+    });
     return paginationIdsFromPageCount(
       pageCountFromTotalCount(idsList.totalCount, itemsPerPage),
       pagePath
@@ -176,6 +186,7 @@ export async function getAllPaginationIds(
 }
 
 export async function getAllCategolizedPaginationIds(
+  clientOpts: PageDataClientOptions,
   apiName: ApiNameArticle,
   category: string[],
   itemsPerPage: number,
@@ -189,10 +200,16 @@ export async function getAllCategolizedPaginationIds(
     const categoryLen = category.length;
     for (let idx = 0; idx < categoryLen; idx++) {
       const cat = category[idx];
-      const ids = await getAllPaginationIds(apiName, itemsPerPage, pagePath, {
-        ...query,
-        filters: `category[contains]${cat}`
-      });
+      const ids = await getAllPaginationIds(
+        clientOpts,
+        apiName,
+        itemsPerPage,
+        pagePath,
+        {
+          ...query,
+          filters: `category[contains]${cat}`
+        }
+      );
       ret = ret.concat(ids.map((id) => [cat, ...id]));
     }
     return ret;
@@ -203,6 +220,7 @@ export async function getAllCategolizedPaginationIds(
 }
 
 export async function getPagesData(
+  { baseURL, getApiKey, globalDraftKey }: PageDataClientOptions,
   apiName: ApiNameArticle,
   { params = { id: '' }, preview = false, previewData = {} }: any,
   options: PageDataGetOptions = {
@@ -220,10 +238,12 @@ export async function getPagesData(
           'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual,description'
       }
     );
-    const res = await client[apiName]._id(id).$get({
-      query: query,
-      config: fetchConfig
-    });
+    const res = await client(baseURL)
+      [apiName]._id(id)
+      .$get({
+        query: query,
+        config: fetchConfig(getApiKey, globalDraftKey)
+      });
 
     const articleTitle = res.title;
     const html = await htmlToMarkdown(res.content || '');

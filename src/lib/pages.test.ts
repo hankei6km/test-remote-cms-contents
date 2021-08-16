@@ -1,7 +1,11 @@
 import mockAxios from 'jest-mock-axios';
 import { mockDataPagesList, mockDataPagesHome } from '../test/testMockData';
-import { getSortedPagesData, getAllPagesIds, getPagesData } from './pages';
-import { queryParams } from '../test/testUtils';
+import {
+  PageDataClientOptions,
+  getSortedPagesData,
+  getAllPagesIds,
+  getPagesData
+} from './pages';
 import { mockDataPagesIds } from '../test/testMockData';
 
 afterEach(() => {
@@ -14,9 +18,14 @@ afterEach(() => {
 //  getBaseUrl: () => 'https://hankei6km.github.io/mardock'
 //}));
 
+const clientOpts: PageDataClientOptions = {
+  baseURL: 'http://localhost:3000',
+  getApiKey: 'secret1'
+};
+
 describe('getSortedPagesData()', () => {
   it('should returns contents array with out displayOnIndexPage filed', async () => {
-    const res = getSortedPagesData('pages');
+    const res = getSortedPagesData(clientOpts, 'pages');
     mockAxios.mockResponse({
       data: JSON.parse(JSON.stringify(mockDataPagesList)),
       status: 200,
@@ -25,6 +34,8 @@ describe('getSortedPagesData()', () => {
       config: {}
     });
     expect(mockAxios.request).toHaveBeenCalledTimes(1);
+    expect(mockAxios.request.mock.calls[0][0].baseURL).toEqual(clientOpts.baseURL);
+    expect(mockAxios.request.mock.calls[0][0].headers['X-API-KEY']).toContain(clientOpts.getApiKey);
     expect(mockAxios.request.mock.calls[0][0].url).toContain('/pages');
     expect(mockAxios.request.mock.calls[0][0].params).toStrictEqual({
       fields:
@@ -58,7 +69,7 @@ describe('getSortedPagesData()', () => {
     });
   });
   it('should pass query params', async () => {
-    const res = getSortedPagesData('pages', {
+    const res = getSortedPagesData(clientOpts, 'pages', {
       filters: 'displayOnIndexPage[equals]true'
     });
     mockAxios.mockResponse({
@@ -82,7 +93,7 @@ describe('getSortedPagesData()', () => {
 
 describe('getAllPagesIds()', () => {
   it('should returns all ids', async () => {
-    const res = getAllPagesIds('pages');
+    const res = getAllPagesIds(clientOpts, 'pages');
     mockAxios.mockResponse({
       data: JSON.parse(JSON.stringify(mockDataPagesIds)),
       status: 200,
@@ -100,7 +111,7 @@ describe('getAllPagesIds()', () => {
 });
 describe('getPagesData()', () => {
   it('should returns pageData', async () => {
-    const res = getPagesData('pages', { params: { id: 'home' } });
+    const res = getPagesData(clientOpts, 'pages', { params: { id: 'home' } });
     mockAxios.mockResponse({
       data: JSON.parse(JSON.stringify(mockDataPagesHome)),
       status: 200,
