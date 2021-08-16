@@ -1,6 +1,6 @@
 import axiosClient from '@aspida/axios';
 import axios from 'axios';
-import api from './types/client/$api';
+import api from '../types/client/$api';
 
 export const fetchConfig = (getApiKey: string, globalDraftKey: string = '') => {
   if (getApiKey === '' && process.env.NODE_ENV !== 'test') {
