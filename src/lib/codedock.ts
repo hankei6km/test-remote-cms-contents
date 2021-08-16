@@ -1,8 +1,8 @@
 import { Element, Text } from 'hast';
-import { Handle } from 'hast-util-to-mdast';
-import { code as preHandler } from 'hast-util-to-mdast/lib/handlers/code';
-// const toHtml = require('hast-util-to-html');
-import { toHtml } from 'hast-util-to-html';
+//import { code as preHandler } from 'hast-util-to-mdast/lib/handlers/code';
+const preHandler = require('hast-util-to-mdast/lib/handlers/code');
+// import { toHtml } from 'hast-util-to-html';
+const toHtml = require('hast-util-to-html');
 
 export const CodeDockKindValues = ['markdown', 'comment'] as const;
 export type CodeDockKind = typeof CodeDockKindValues[number];
@@ -43,7 +43,8 @@ export function codeDockKind(value: string): CodeDockKind | undefined {
   return;
 }
 
-export const codeDockHandler: Handle = function (h, node) {
+// export const codeDockHandler: Handle = function (h, node) {
+export const codeDockHandler = function (h: any, node: any): any {
   // コマンドやデータを埋め込みたくなるはず、
   // だが、そういった構造になってはいない
   if (isCodeDock(node)) {

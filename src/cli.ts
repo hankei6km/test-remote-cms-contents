@@ -1,19 +1,25 @@
 import { Writable } from 'stream';
 import countChars from './count';
+import { ApiNameArticle } from './types/apiName';
+import { ClientOptions } from './lib/client';
+import { getRemoteFiles } from './lib/remote';
 
 type Opts = {
-  filenames: string[];
   stdout: Writable;
   stderr: Writable;
-};
-const cli = async ({ filenames, stdout, stderr }: Opts): Promise<number> => {
+  outDir: string;
+  apiName: ApiNameArticle;
+} & ClientOptions;
+const cli = async ({
+  stdout,
+  stderr,
+  outDir,
+  apiName,
+  baseURL,
+  getApiKey
+}: Opts): Promise<number> => {
   try {
-    const len = filenames.length;
-    for (let i = 0; i < len; i++) {
-      const filename = filenames[i];
-      const count = await countChars(filename);
-      stdout.write(`${filename}: ${count} chars\n`);
-    }
+    await getRemoteFiles({ baseURL, getApiKey }, apiName, outDir);
   } catch (err) {
     stderr.write(err.toString());
     stderr.write('\n');

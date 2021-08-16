@@ -2,7 +2,7 @@ import unified from 'unified';
 import rehypeParse from 'rehype-parse';
 import rehype2Remark, { Options } from 'rehype-remark';
 import rehypeSanitize from 'rehype-sanitize';
-import { Handle } from 'hast-util-to-mdast';
+// import { Handle } from 'hast-util-to-mdast';
 import stringify from 'remark-stringify';
 import { Transformer } from 'unified';
 import { Node, Element } from 'hast';
@@ -13,7 +13,7 @@ import {
   PagesSourcePageHtml
 } from '../types/client/contentTypes';
 import { codeDockHandler } from './codedock';
-var toText = require('hast-util-to-text').toText;
+var toText = require('hast-util-to-text');
 
 const fenceToFrontMatterRegExp = /^---\n(.+)\n---\n*$/s;
 export function firstParagraphAsCodeDockTransformer(): Transformer {
@@ -52,7 +52,7 @@ export function firstParagraphAsCodeDockTransformer(): Transformer {
   };
 }
 
-const brHandler: Handle = (h: any, node: any): any => {
+const brHandler = (h: any, node: any): any => {
   // <br> が `/` になってしまうので暫定対応
   return h(node, 'text', ' ');
 };

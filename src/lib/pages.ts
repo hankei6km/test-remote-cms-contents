@@ -1,5 +1,5 @@
 // import { Writable } from 'stream';
-import client, { fetchConfig } from './client';
+import client, { ClientOptions, fetchConfig } from './client';
 import {
   PagesList,
   PagesIds,
@@ -32,11 +32,6 @@ import { htmlToMarkdown } from './source';
 // id が 1件で 40byte  と想定、 content-length が 5M 程度とのことなので、1000*1000*5 / 40 で余裕を見て決めた値。
 const allIdsLimit = 120000;
 
-export type PageDataClientOptions = {
-  baseURL: string;
-  getApiKey: string;
-  globalDraftKey?: string;
-};
 export type PageDataGetOptions = {
   // ページの主題となる一覧を取得する場合に指定(ブログページで posps API を指定するなど)
   // コンテンツ側からは congtentPageArticles として指定する。
@@ -50,7 +45,7 @@ export type PageDataGetOptions = {
 };
 
 export async function getSortedPagesData(
-  { baseURL, getApiKey, globalDraftKey }: PageDataClientOptions,
+  { baseURL, getApiKey, globalDraftKey }: ClientOptions,
   apiName: ApiNameArticle,
   query: GetQuery = {}
 ): Promise<PagesList> {
@@ -73,7 +68,7 @@ export async function getSortedPagesData(
 }
 
 export async function getSortedIndexData(
-  { baseURL, getApiKey, globalDraftKey }: PageDataClientOptions,
+  { baseURL, getApiKey, globalDraftKey }: ClientOptions,
   apiName: ApiNameArticle,
   query: GetQuery = {}
 ): Promise<IndexList> {
@@ -126,7 +121,7 @@ export async function getSortedIndexData(
 }
 
 export async function getPagesIdsList(
-  { baseURL, getApiKey, globalDraftKey }: PageDataClientOptions,
+  { baseURL, getApiKey, globalDraftKey }: ClientOptions,
   apiName: ApiNameArticle,
   query: GetQuery = {}
 ): Promise<PagesIds> {
@@ -146,7 +141,7 @@ export async function getPagesIdsList(
 }
 
 export async function getAllPagesIds(
-  clientOpts: PageDataClientOptions,
+  clientOpts: ClientOptions,
   apiName: ApiNameArticle,
   query: GetQuery = {}
 ) {
@@ -164,7 +159,7 @@ export async function getAllPagesIds(
 }
 
 export async function getAllPaginationIds(
-  clientOpts: PageDataClientOptions,
+  clientOpts: ClientOptions,
   apiName: ApiNameArticle,
   itemsPerPage: number,
   pagePath: string[] = [],
@@ -186,7 +181,7 @@ export async function getAllPaginationIds(
 }
 
 export async function getAllCategolizedPaginationIds(
-  clientOpts: PageDataClientOptions,
+  clientOpts: ClientOptions,
   apiName: ApiNameArticle,
   category: string[],
   itemsPerPage: number,
@@ -220,7 +215,7 @@ export async function getAllCategolizedPaginationIds(
 }
 
 export async function getPagesData(
-  { baseURL, getApiKey, globalDraftKey }: PageDataClientOptions,
+  { baseURL, getApiKey, globalDraftKey }: ClientOptions,
   apiName: ApiNameArticle,
   { params = { id: '' }, preview = false, previewData = {} }: any,
   options: PageDataGetOptions = {

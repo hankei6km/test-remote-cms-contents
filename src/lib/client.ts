@@ -2,6 +2,12 @@ import axiosClient from '@aspida/axios';
 import axios from 'axios';
 import api from '../types/client/$api';
 
+export type ClientOptions = {
+  baseURL: string;
+  getApiKey: string;
+  globalDraftKey?: string;
+};
+
 export const fetchConfig = (getApiKey: string, globalDraftKey: string = '') => {
   if (getApiKey === '' && process.env.NODE_ENV !== 'test') {
     console.error('$GET_API_KEY is not defined.');

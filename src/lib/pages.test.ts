@@ -1,11 +1,7 @@
 import mockAxios from 'jest-mock-axios';
 import { mockDataPagesList, mockDataPagesHome } from '../test/testMockData';
-import {
-  PageDataClientOptions,
-  getSortedPagesData,
-  getAllPagesIds,
-  getPagesData
-} from './pages';
+import { ClientOptions } from './client';
+import { getSortedPagesData, getAllPagesIds, getPagesData } from './pages';
 import { mockDataPagesIds } from '../test/testMockData';
 
 afterEach(() => {
@@ -18,7 +14,7 @@ afterEach(() => {
 //  getBaseUrl: () => 'https://hankei6km.github.io/mardock'
 //}));
 
-const clientOpts: PageDataClientOptions = {
+const clientOpts: ClientOptions = {
   baseURL: 'http://localhost:3000',
   getApiKey: 'secret1'
 };
@@ -34,8 +30,12 @@ describe('getSortedPagesData()', () => {
       config: {}
     });
     expect(mockAxios.request).toHaveBeenCalledTimes(1);
-    expect(mockAxios.request.mock.calls[0][0].baseURL).toEqual(clientOpts.baseURL);
-    expect(mockAxios.request.mock.calls[0][0].headers['X-API-KEY']).toContain(clientOpts.getApiKey);
+    expect(mockAxios.request.mock.calls[0][0].baseURL).toEqual(
+      clientOpts.baseURL
+    );
+    expect(mockAxios.request.mock.calls[0][0].headers['X-API-KEY']).toContain(
+      clientOpts.getApiKey
+    );
     expect(mockAxios.request.mock.calls[0][0].url).toContain('/pages');
     expect(mockAxios.request.mock.calls[0][0].params).toStrictEqual({
       fields:
