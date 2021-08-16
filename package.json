@@ -14,9 +14,7 @@
   "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "bin": {
     "count": "dist/main.js"
   },
@@ -27,6 +25,7 @@
     "start:watch": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
     "prebuild": "npm run pre",
     "build": "tsc",
+    "pretest": "npm run pre",
     "test": "jest",
     "clean": "rm dist/*",
     "upgrade-interactive": "npm-check --update",
