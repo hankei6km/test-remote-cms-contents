@@ -54,7 +54,7 @@ export async function getSortedPagesData(
       query: {
         ...query,
         fields:
-          'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual'
+          'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,mainVisual'
       },
       config: fetchConfig(getApiKey, globalDraftKey)
     });
@@ -77,13 +77,13 @@ export async function getSortedIndexData(
       query: {
         ...query,
         fields:
-          'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual'
+          'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,mainVisual'
       },
       config: fetchConfig(getApiKey, globalDraftKey)
     });
     const p = res.body.contents.map((res) => {
       return async (): Promise<IndexData> => {
-        // ここでは res.content は html として扱う
+        // ここでは res.content は markdown として扱う
         const articleTitle = res.title;
         const mainVisual = res.mainVisual?.url
           ? res.mainVisual
@@ -230,7 +230,7 @@ export async function getPagesData(
       params.id as string,
       {
         fields:
-          'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual,description'
+          'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,mainVisual,description'
       }
     );
     const res = await client(baseURL)
@@ -241,7 +241,7 @@ export async function getPagesData(
       });
 
     const articleTitle = res.title;
-    const html = await htmlToMarkdown(res.content || '');
+    const markdown = await htmlToMarkdown(res.content || '');
     const mainVisual = res.mainVisual?.url
       ? res.mainVisual
       : {
@@ -261,7 +261,7 @@ export async function getPagesData(
       category: apiName !== 'pages' ? res.category || [] : [],
       curCategory: options.curCategory || '',
       articleTitle,
-      html: html,
+      content: markdown,
       mainVisual: {
         ...mainVisual
       },

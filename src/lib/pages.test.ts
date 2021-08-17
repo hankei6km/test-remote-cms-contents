@@ -39,7 +39,7 @@ describe('getSortedPagesData()', () => {
     expect(mockAxios.request.mock.calls[0][0].url).toContain('/pages');
     expect(mockAxios.request.mock.calls[0][0].params).toStrictEqual({
       fields:
-        'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual'
+        'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,mainVisual'
     });
     expect(await res).toStrictEqual({
       contents: [
@@ -84,7 +84,7 @@ describe('getSortedPagesData()', () => {
     expect(mockAxios.request.mock.calls[0][0].url).toContain('/pages');
     expect(mockAxios.request.mock.calls[0][0].params).toStrictEqual({
       fields:
-        'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual',
+        'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,mainVisual',
       filters: 'displayOnIndexPage[equals]true'
     });
     // expect(fetchMock.mock.calls[0][1]?.headers) 環境変数の設定とメッセージによっては API キーが漏洩する可能性があるのでとりあえずやめる
@@ -122,7 +122,7 @@ describe('getPagesData()', () => {
     expect(mockAxios.request.mock.calls[0][0].url).toContain('/pages/home');
     expect(mockAxios.request.mock.calls[0][0].params).toStrictEqual({
       fields:
-        'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,sourceContents,sourcePages,source,category,mainVisual,description'
+        'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,mainVisual,description'
     });
     expect(await res).toStrictEqual({
       id: 'home',
@@ -135,10 +135,7 @@ describe('getPagesData()', () => {
       description: 'description of draftlint',
       articleTitle: 'Home',
       updated: '2020-12-27T04:04:30.107Z',
-      htmlToc: {
-        items: []
-      },
-      html: 'home page\n',
+      content: 'home page\n',
       mainVisual: {
         url: '',
         width: 0,
