@@ -1,5 +1,4 @@
 import { Writable } from 'stream';
-import countChars from './count';
 import { ApiNameArticle } from './types/apiName';
 import { ClientOptions } from './lib/client';
 import { saveRemoteContents } from './lib/remote';
