@@ -26,7 +26,7 @@ import { ApiNameArticle, ApiNameArticleValues } from './types/apiName';
         required: true,
         description: 'API name to API endpoint'
       },
-      baseURL: {
+      apiBaseURL: {
         type: 'string',
         required: true,
         description: 'Base URL to API endpoint'
@@ -45,7 +45,7 @@ import { ApiNameArticle, ApiNameArticleValues } from './types/apiName';
       stderr: process.stderr,
       outDir: argv.outdir,
       apiName: argv.apiName as ApiNameArticle,
-      baseURL: argv.baseURL,
+      baseURL: argv.apiBaseURL,
       getApiKey: argv.getApiKey
     })
   );
