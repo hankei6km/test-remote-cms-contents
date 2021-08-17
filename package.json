@@ -18,7 +18,7 @@
     "dist"
   ],
   "bin": {
-    "count": "dist/main.js"
+    "test-remote-cms-contents": "dist/main.js"
   },
   "scripts": {
     "api:build": "aspida",

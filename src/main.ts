@@ -7,7 +7,7 @@ import { ApiNameArticle, ApiNameArticleValues } from './types/apiName';
 
 (async () => {
   const argv = await yargs(hideBin(process.argv))
-    .scriptName('count')
+    .scriptName('test-remote-cms-contens')
     .command(
       'save <outdir>',
       'save remote contents to local directory',
