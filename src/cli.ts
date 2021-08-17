@@ -2,7 +2,7 @@ import { Writable } from 'stream';
 import countChars from './count';
 import { ApiNameArticle } from './types/apiName';
 import { ClientOptions } from './lib/client';
-import { getRemoteFiles } from './lib/remote';
+import { saveRemoteContents } from './lib/remote';
 
 type Opts = {
   stdout: Writable;
@@ -19,7 +19,7 @@ const cli = async ({
   getApiKey
 }: Opts): Promise<number> => {
   try {
-    await getRemoteFiles({ baseURL, getApiKey }, apiName, outDir);
+    await saveRemoteContents({ baseURL, getApiKey }, apiName, outDir);
   } catch (err) {
     stderr.write(err.toString());
     stderr.write('\n');

@@ -70,26 +70,51 @@ export const mockDataDeckContents: PagesContents['contents'] = [
 
 export const mockDataDeckSlide1 = mockDataDeckContents[0];
 
-export const mockDataPageData: PageData = {
-  id: 'home',
-  title: 'Home',
-  pageCount: -1,
-  pageNo: 1,
-  allCategory: [
-    { title: 'cat 1', id: 'cat1' },
-    { title: 'cat 2', id: 'cat2' }
-  ],
-  category: [{ title: 'cat 2', id: 'cat2' }],
-  curCategory: '',
-  description: 'description of draftlint',
-  articleTitle: 'Home',
-  created: '2020-12-27T03:04:30.107Z',
-  updated: '2020-12-27T04:04:30.107Z',
-  content: 'home page\n',
-  mainVisual: {
-    url: 'image1.jpg',
-    width: 0,
-    height: 0
+export const mockDataPageData: PageData[] = [
+  {
+    id: 'home',
+    title: 'Home',
+    pageCount: -1,
+    pageNo: 1,
+    allCategory: [
+      { title: 'cat 1', id: 'cat1' },
+      { title: 'cat 2', id: 'cat2' }
+    ],
+    category: [{ title: 'cat 2', id: 'cat2' }],
+    curCategory: '',
+    description: 'description of draftlint',
+    articleTitle: 'Home',
+    created: '2020-12-27T03:04:30.107Z',
+    updated: '2020-12-27T04:04:30.107Z',
+    content: 'home page\n',
+    mainVisual: {
+      url: 'image1.jpg',
+      width: 0,
+      height: 0
+    },
+    feedUrl: ''
   },
-  feedUrl: ''
-};
+  {
+    id: 'posts',
+    title: 'Blog',
+    pageCount: -1,
+    pageNo: 1,
+    allCategory: [
+      { title: 'cat 1', id: 'cat1' },
+      { title: 'cat 2', id: 'cat2' }
+    ],
+    category: [{ title: 'cat 1', id: 'cat1' }],
+    curCategory: '',
+    description: '',
+    articleTitle: 'Blog',
+    created: '2020-12-26T15:29:14.476Z',
+    updated: '2020-12-26T15:29:14.476Z',
+    content: 'documents page\n',
+    mainVisual: {
+      url: 'image1.jpg',
+      width: 0,
+      height: 0
+    },
+    feedUrl: ''
+  }
+];

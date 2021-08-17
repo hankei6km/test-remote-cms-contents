@@ -3,7 +3,7 @@ import { meta } from './meta';
 
 describe('meta()', () => {
   it('should makes meta from pageData', async () => {
-    expect(await meta(mockDataPageData, { position: 1 })).toStrictEqual({
+    expect(await meta(mockDataPageData[0], { position: 1 })).toStrictEqual({
       position: 1,
       title: 'Home',
       link: '',
