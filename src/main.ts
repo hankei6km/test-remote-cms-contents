@@ -38,7 +38,6 @@ import { ApiNameArticle, ApiNameArticleValues } from './types/apiName';
       }
     })
     .help().argv;
-  console.log('--', argv);
   process.exit(
     await cli({
       stdout: process.stdout,

@@ -18,11 +18,15 @@ const cli = async ({
   baseURL,
   getApiKey
 }: Opts): Promise<number> => {
+  let err: Error | null = null;
   try {
-    await saveRemoteContents({ baseURL, getApiKey }, apiName, outDir);
+    err = await saveRemoteContents({ baseURL, getApiKey }, apiName, outDir);
   } catch (err) {
     stderr.write(err.toString());
     stderr.write('\n');
+    return 1;
+  }
+  if (err) {
     return 1;
   }
   return 0;
