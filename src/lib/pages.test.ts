@@ -141,14 +141,6 @@ describe('getPagesData()', () => {
         width: 0,
         height: 0
       },
-      meta: {
-        title: '',
-        link: '',
-        updated: '',
-        keyword: [],
-        description: '',
-        image: ''
-      },
       feedUrl: ''
     });
   });

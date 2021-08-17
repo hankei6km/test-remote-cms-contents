@@ -6,15 +6,6 @@ export type Notification = {
   serverity: 'info' | 'warning' | 'alert';
 };
 
-export type MetaData = {
-  title: string;
-  link: string;
-  updated: string;
-  keyword: string[]; // 今回は使わない、か category をコピーか.
-  description: string;
-  image: string; // Tewitter card 等のバリエーションは保持しない、利用時に生成する(imgix 前提)
-};
-
 export type PageData = {
   id: string;
   updated: string; // この段階では Date にはしない
@@ -33,7 +24,6 @@ export type PageData = {
     height: number;
   };
   description: string;
-  meta: MetaData;
   feedUrl: string;
 };
 
@@ -50,14 +40,6 @@ export type IndexData = Omit<
 >;
 export type IndexList = ContentList<IndexData>;
 
-export const blankMetaData = (): MetaData => ({
-  title: '',
-  link: '',
-  updated: '', // 現在時刻を入れておくか？
-  keyword: [],
-  description: '',
-  image: ''
-});
 export const blankPageData = (): PageData => ({
   id: '',
   updated: '',
@@ -71,7 +53,6 @@ export const blankPageData = (): PageData => ({
   content: '',
   mainVisual: { url: '', width: 0, height: 0 },
   description: '',
-  meta: blankMetaData(),
   feedUrl: ''
 });
 
@@ -82,8 +63,7 @@ export const blankIndexData = (): IndexData => ({
   category: [],
   articleTitle: '',
   mainVisual: { url: '', width: 0, height: 0 },
-  description: '',
-  meta: blankMetaData()
+  description: ''
 });
 
 export const blankIndexList = (): IndexList => ({
