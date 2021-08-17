@@ -8,7 +8,8 @@ export type Notification = {
 
 export type PageData = {
   id: string;
-  updated: string; // この段階では Date にはしない
+  created: string; // この段階では Date にはしない
+  updated: string; // nuxt-content の createdAt 等をわけるために名前を変えている.
   notification?: Notification;
   pageNo: number; // pagination 用、getStaticProps で付与される.
   pageCount: number; // pagination しないときは -1.
@@ -42,6 +43,7 @@ export type IndexList = ContentList<IndexData>;
 
 export const blankPageData = (): PageData => ({
   id: '',
+  created: '',
   updated: '',
   title: '',
   pageNo: 1,
@@ -58,6 +60,7 @@ export const blankPageData = (): PageData => ({
 
 export const blankIndexData = (): IndexData => ({
   id: '',
+  created: '',
   updated: '',
   title: '',
   category: [],

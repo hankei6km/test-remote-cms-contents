@@ -4,6 +4,7 @@ export type MetaData = {
   position: number; // API から取得したときの並び順.
   title: string;
   link: string;
+  created: string;
   updated: string;
   keyword: string[]; // 今回は使わない
   allCategory: PagesCategory[]; // pages API で使うときもある(API で使う category の一覧).
@@ -16,6 +17,7 @@ export const blankMetaData = (): MetaData => ({
   position: -1,
   title: '',
   link: '',
+  created: '', // 現在時刻を入れておくか？
   updated: '', // 現在時刻を入れておくか？
   keyword: [],
   allCategory: [],

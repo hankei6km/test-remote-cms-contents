@@ -95,6 +95,7 @@ export async function getSortedIndexData(
         const ret = {
           ...blankIndexData(),
           id: res.id,
+          created: res.createdAt,
           updated: res.updatedAt,
           title: res.title,
           category: apiName !== 'pages' ? res.category || [] : [],
@@ -252,6 +253,7 @@ export async function getPagesData(
     const ret: PageData = {
       ...blankPageData(),
       id: res.id,
+      created: res.createdAt,
       updated: res.updatedAt,
       title: res.title,
       pageNo: options.pageNo !== undefined ? options.pageNo : 1,

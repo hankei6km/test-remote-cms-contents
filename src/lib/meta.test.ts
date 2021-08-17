@@ -14,6 +14,7 @@ describe('meta()', () => {
       ],
       category: [{ title: 'cat 2', id: 'cat2' }],
       description: 'description of draftlint',
+      created: '2020-12-27T03:04:30.107Z',
       updated: '2020-12-27T04:04:30.107Z',
       image: 'image1.jpg'
     });

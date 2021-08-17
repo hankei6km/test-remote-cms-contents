@@ -4,7 +4,7 @@ import { PageData } from '../types/pageTypes';
 export const mockDataPagesContents: PagesContents['contents'] = [
   {
     id: 'home',
-    createdAt: '2020-12-27T04:04:30.107Z',
+    createdAt: '2020-12-27T03:04:30.107Z',
     updatedAt: '2020-12-27T04:04:30.107Z',
     publishedAt: '2020-12-27T04:04:30.107Z',
     revisedAt: '2020-12-27T04:04:30.107Z',
@@ -83,6 +83,7 @@ export const mockDataPageData: PageData = {
   curCategory: '',
   description: 'description of draftlint',
   articleTitle: 'Home',
+  created: '2020-12-27T03:04:30.107Z',
   updated: '2020-12-27T04:04:30.107Z',
   content: 'home page\n',
   mainVisual: {

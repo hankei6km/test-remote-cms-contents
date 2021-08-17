@@ -13,6 +13,7 @@ export async function meta(
 
   ret.position = opts.position;
   ret.title = page.title;
+  ret.created = page.created;
   ret.updated = page.updated;
   ret.allCategory = page.allCategory.map(({ title, id }) => ({
     title,
