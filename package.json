@@ -1,5 +1,5 @@
 {
-  "name": "test-remote-cms-contents",
+  "name": "@hankei6km/test-remote-cms-contents",
   "version": "0.1.0-0",
   "description": "nuxt-content 用にリモート CMS のコンテンツを取得するパッケージのテスト",
   "author": "hankei6km <hankei6km@gmail.com> (https://github.com/hankei6km)",
