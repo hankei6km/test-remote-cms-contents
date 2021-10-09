@@ -6,10 +6,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/<user>/<repository>.git"
+    "url": "git://github.com/hankei6km/test-remote-cms-contents.git"
   },
   "bugs": {
-    "url": "https://github.com/<user>/<repository>/issues"
+    "url": "https://github.com/hankei6km/test-remote-cms-contents/issues"
   },
   "keywords": [],
   "main": "dist/index.js",
