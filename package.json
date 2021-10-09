@@ -1,15 +1,15 @@
 {
   "name": "@hankei6km/test-remote-cms-contents",
-  "version": "0.1.0-0",
+  "version": "0.1.0-3",
   "description": "nuxt-content 用にリモート CMS のコンテンツを取得するパッケージのテスト",
   "author": "hankei6km <hankei6km@gmail.com> (https://github.com/hankei6km)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/<user>/<repository>.git"
+    "url": "git://github.com/hankei6km/test-remote-cms-contents.git"
   },
   "bugs": {
-    "url": "https://github.com/<user>/<repository>/issues"
+    "url": "https://github.com/hankei6km/test-remote-cms-contents/issues"
   },
   "keywords": [],
   "main": "dist/index.js",
